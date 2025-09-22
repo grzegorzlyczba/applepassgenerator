@@ -50,11 +50,11 @@ class NumberStyle:
 
 
 class Field(object):
-    def __init__(self, key, value, label=""):
+    def __init__(self, key, value, label="", changeMessage=""):
         self.key = key  # Required. The key must be unique within the scope
         self.value = value  # Required. Value of the field. For example, 42
         self.label = label  # Optional. Label text for the field.
-        self.changeMessage = ""  # Optional. Format string for the alert text that is displayed when the pass is updated
+        self.changeMessage = changeMessage  # Optional. Format string for the alert text that is displayed when the pass is updated
         self.textAlignment = Alignment.LEFT
 
     def json_dict(self):
@@ -67,11 +67,12 @@ class DateField(Field):
         key,
         value,
         label="",
+        changeMessage="",
         date_style=DateStyle.SHORT,
         time_style=DateStyle.SHORT,
         ignores_time_zone=False,
     ):
-        super(DateField, self).__init__(key, value, label)
+        super(DateField, self).__init__(key, value, label, changeMessage)
         self.dateStyle = date_style  # Style of date to display
         self.timeStyle = time_style  # Style of time to display
         self.isRelative = (
@@ -85,8 +86,8 @@ class DateField(Field):
 
 
 class NumberField(Field):
-    def __init__(self, key, value, label=""):
-        super(NumberField, self).__init__(key, value, label)
+    def __init__(self, key, value, label="", changeMessage=""):
+        super(NumberField, self).__init__(key, value, label, changeMessage)
         self.numberStyle = NumberStyle.DECIMAL  # Style of date to display
 
     def json_dict(self):
@@ -94,8 +95,8 @@ class NumberField(Field):
 
 
 class CurrencyField(NumberField):
-    def __init__(self, key, value, label="", currency_code=""):
-        super(CurrencyField, self).__init__(key, value, label)
+    def __init__(self, key, value, label="", changeMessage="", currency_code=""):
+        super(CurrencyField, self).__init__(key, value, label, changeMessage)
         self.currencyCode = currency_code  # ISO 4217 currency code
 
     def json_dict(self):
@@ -171,20 +172,20 @@ class PassInformation(object):
         self.back_fields = []
         self.auxiliary_fields = []
 
-    def add_header_field(self, key, value, label):
-        self.header_fields.append(Field(key, value, label))
+    def add_header_field(self, key, value, label, changeMessage=""):
+        self.header_fields.append(Field(key, value, label, changeMessage))
 
-    def add_primary_field(self, key, value, label):
-        self.primary_fields.append(Field(key, value, label))
+    def add_primary_field(self, key, value, label, changeMessage=""):
+        self.primary_fields.append(Field(key, value, label, changeMessage))
 
-    def add_secondary_field(self, key, value, label):
-        self.secondary_fields.append(Field(key, value, label))
+    def add_secondary_field(self, key, value, label, changeMessage=""):
+        self.secondary_fields.append(Field(key, value, label, changeMessage))
 
-    def add_back_field(self, key, value, label):
-        self.back_fields.append(Field(key, value, label))
+    def add_back_field(self, key, value, label, changeMessage=""):
+        self.back_fields.append(Field(key, value, label, changeMessage))
 
-    def add_auxiliary_field(self, key, value, label):
-        self.auxiliary_fields.append(Field(key, value, label))
+    def add_auxiliary_field(self, key, value, label, changeMessage=""):
+        self.auxiliary_fields.append(Field(key, value, label, changeMessage))
 
     def json_dict(self):
         d = {}
