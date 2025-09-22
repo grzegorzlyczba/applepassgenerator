@@ -124,7 +124,7 @@ class Barcode(object):
 
 
 class Location(object):
-    def __init__(self, latitude, longitude, altitude=0.0):
+    def __init__(self, latitude, longitude, altitude=0.0, relevantText=""):
         # Required. Latitude, in degrees, of the location.
         try:
             self.latitude = float(latitude)
@@ -144,7 +144,7 @@ class Location(object):
         self.distance = None
         # Optional. Text displayed on the lock screen when
         # the pass is currently near the location
-        self.relevantText = ""
+        self.relevantText = relevantText
 
     def json_dict(self):
         return self.__dict__
