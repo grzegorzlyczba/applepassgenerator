@@ -140,8 +140,6 @@ class Location(object):
             self.altitude = float(altitude)
         except (ValueError, TypeError):
             self.altitude = 0.0
-        # Optional. Notification distance
-        self.distance = None
         # Optional. Text displayed on the lock screen when
         # the pass is currently near the location
         self.relevantText = relevantText
